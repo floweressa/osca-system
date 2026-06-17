@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSCA — Senior Citizens</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:        #f5f5f4;
+  --surface:   #ffffff;
+  --surface-2: #f9f9f8;
+  --border:    #e4e2df;
+  --border-2:  #d0ceca;
+  --text-1:    #1a1917;
+  --text-2:    #5c5955;
+  --text-3:    #9c9894;
+  --accent:    #2d2d2b;
+  --blue:      #2563a0;
+  --blue-bg:   #eff5fc;
+  --green:     #1a6b40;
+  --green-bg:  #eef7f2;
+  --amber:     #7a4f00;
+  --amber-bg:  #fdf4e3;
+  --radius:    8px;
+  --radius-lg: 12px;
+  --shadow:    0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-1);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Page wrap ── */
+.page-wrap {
+  width: 100%;
+  max-width: 860px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Header ── */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-left h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-1);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.header-left {
+  width: 100%;
+}
+
+.header-left h1 {
+  text-align: center;
+}
+
+.header-left p {
+  color: var(--text-3);
+  font-size: 13px;
+  margin-top: 3px;
+  font-weight: 300;
+}
+
+.header-badge {
+  background: var(--text-1);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* ── Menu grid ── */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .menu-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Nav card ── */
+.nav-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 28px 24px 24px;
+  text-decoration: none;
+  color: inherit;
+  transition: box-shadow .18s, border-color .18s, transform .12s;
+  cursor: pointer;
+}
+
+.nav-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-2);
+  transform: translateY(-2px);
+}
+
+.nav-card:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow);
+}
+
+/* ── Card icon ── */
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.card-icon svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.6;
+}
+
+.icon-blue  { background: var(--blue-bg);  color: var(--blue);  }
+.icon-green { background: var(--green-bg); color: var(--green); }
+.icon-amber { background: var(--amber-bg); color: var(--amber); }
+
+/* ── Card body ── */
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-1);
+  line-height: 1.2;
+  letter-spacing: -0.2px;
+}
+
+.card-desc {
+  font-size: 13px;
+  color: var(--text-2);
+  font-weight: 300;
+  line-height: 1.55;
+  margin-top: 2px;
+}
+
+/* ── Card footer ── */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.card-cta {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+.cta-blue  { color: var(--blue);  }
+.cta-green { color: var(--green); }
+.cta-amber { color: var(--amber); }
+
+.arrow-icon {
+  width: 16px;
+  height: 16px;
+  opacity: 0.5;
+  transition: opacity .15s, transform .15s;
+}
+
+.nav-card:hover .arrow-icon {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* ── Footer note ── */
+.page-foot {
+  text-align: center;
+  font-size: 12px;
+  color: var(--text-3);
+  font-weight: 300;
+  padding-bottom: 8px;
+}
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <h1>SENIOR CITIZENS</h1>
+    </div>
+  </div>
+
+  <!-- Navigation cards -->
+  <div class="menu-grid">
+
+    <!-- Not Listed -->
+    <a class="nav-card" href="not_listed_sc.html">
+      <div class="card-icon icon-blue">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-3-3v6M4.5 19.5l1.5-1.5M19.5 19.5l-1.5-1.5M12 3v1m0 16v1M4.22 4.22l1.42 1.42M18.36 5.64l-1.42 1.42M3 12H4m16 0h1"/>
+          <circle cx="12" cy="12" r="4"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Not Listed</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-cta cta-blue">Open list</span>
+        <svg class="arrow-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Surveyed List -->
+    <a class="nav-card" href="surveyed_sc.html">
+      <div class="card-icon icon-green">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Surveyed List</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-cta cta-green">Open list</span>
+        <svg class="arrow-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+
+    <!-- Coupons List -->
+    <a class="nav-card" href="sc_coupons.html">
+      <div class="card-icon icon-amber">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 12h.01M7 17h.01M11 7h6M11 12h6M11 17h6M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Coupons List</div>
+      </div>
+      <div class="card-footer">
+        <span class="card-cta cta-amber">Open list</span>
+        <svg class="arrow-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+        </svg>
+      </div>
+    </a>
+
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OSCA — Senior Citizens</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:        #f5f5f4;
+  --surface:   #ffffff;
+  --surface-2: #f9f9f8;
+  --border:    #e4e2df;
+  --border-2:  #d0ceca;
+  --text-1:    #1a1917;
+  --text-2:    #5c5955;
+  --text-3:    #9c9894;
+  --accent:    #2d2d2b;
+  --accent-2:  #4a4a47;
+  --blue:      #2563a0;
+  --blue-bg:   #eff5fc;
+  --green:     #1a6b40;
+  --green-bg:  #eef7f2;
+  --amber:     #7a4f00;
+  --amber-bg:  #fdf4e3;
+  --red:       #8b2020;
+  --red-bg:    #fdf0f0;
+  --radius:    8px;
+  --radius-lg: 12px;
+  --shadow:    0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text-1);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 32px 20px;
+}
+
+/* ── Layout ── */
+.page-wrap {
+  max-width: 1320px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ── Header ── */
+.page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-left h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--text-1);
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+}
+
+.header-left p {
+  color: var(--text-3);
+  font-size: 13px;
+  margin-top: 3px;
+  font-weight: 300;
+}
+
+.header-badge {
+  background: var(--text-1);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+/* ── Card ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.card-header {
+  padding: 18px 24px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-header-icon {
+  width: 28px; height: 28px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+}
+
+.card-header h2 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.card-body {
+  padding: 24px;
+}
+
+/* ── Form ── */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.form-group label span.req {
+  color: var(--blue);
+  margin-left: 2px;
+}
+
+input {
+  padding: 9px 12px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-1);
+  background: var(--surface);
+  transition: border-color .15s, box-shadow .15s;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(45,45,43,.07);
+}
+
+input[type="text"] { text-transform: uppercase; }
+
+input[readonly] {
+  background: var(--surface-2);
+  color: var(--text-2);
+  cursor: default;
+}
+
+input::placeholder { color: var(--text-3); font-weight: 300; }
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 4px 0;
+}
+
+/* ── Action Row ── */
+.action-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 16px 24px 20px;
+}
+
+.action-row .spacer { flex: 1; }
+
+/* ── Buttons ── */
+button {
+  border: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity .15s, transform .1s, box-shadow .15s;
+  letter-spacing: 0.1px;
+}
+
+button:hover { opacity: .88; }
+button:active { transform: scale(.98); }
+
+.btn-save   { background: var(--green); color: #fff; }
+.btn-update { background: var(--amber-bg); color: var(--amber); border: 1px solid #e8d4a0; }
+.btn-clear  { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border-2); }
+.btn-pdf    { background: var(--text-1); color: #fff; }
+
+/* ── Search ── */
+.search-wrap {
+  position: relative;
+}
+
+.search-wrap svg {
+  position: absolute;
+  left: 12px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-3);
+  pointer-events: none;
+}
+
+.search-wrap input {
+  width: 100%;
+  padding-left: 36px;
+  font-size: 13.5px;
+}
+
+/* ── Table ── */
+.table-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.record-count {
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+.record-count strong {
+  color: var(--text-1);
+  font-weight: 600;
+}
+
+.table-scroll {
+  overflow-x: auto;
+  border-top: 1px solid var(--border);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+thead th {
+  background: var(--surface-2);
+  color: var(--text-2);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  padding: 11px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+  position: sticky; top: 0;
+}
+
+thead th:first-child { padding-left: 20px; }
+thead th:last-child  { text-align: center; }
+
+tbody td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-1);
+  vertical-align: middle;
+}
+
+tbody td:first-child { padding-left: 20px; color: var(--text-3); font-variant-numeric: tabular-nums; }
+
+tbody tr:last-child td { border-bottom: none; }
+
+tbody tr:hover { background: var(--surface-2); }
+
+.td-name { font-weight: 500; }
+.td-id   { font-family: inherit; letter-spacing: 0.3px; font-size: 12.5px; color: inherit; }
+
+.age-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.td-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.btn-edit, .btn-delete {
+  padding: 5px 12px;
+  font-size: 12px;
+  border-radius: 6px;
+}
+
+.btn-edit   { background: var(--blue-bg); color: var(--blue); border: 1px solid #c5d9ef; }
+.btn-delete { background: var(--red-bg);  color: var(--red);  border: 1px solid #edc5c5; }
+
+/* ── Empty State ── */
+.empty-state {
+  text-align: center;
+  padding: 56px 24px;
+  color: var(--text-3);
+}
+
+.empty-state svg { margin-bottom: 12px; opacity: .4; }
+.empty-state p   { font-size: 14px; }
+
+/* ── Edit Mode Banner ── */
+.edit-banner {
+  display: none;
+  background: var(--amber-bg);
+  border: 1px solid #e8d4a0;
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-size: 13px;
+  color: var(--amber);
+  align-items: center;
+  gap: 8px;
+  margin: 0 24px 4px;
+}
+
+.edit-banner.visible { display: flex; }
+
+/* ── PDF print styles ── */
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 10px;
+    padding: 0;
+  }
+  .card-header,
+  .form-section,
+  .toolbar-card,
+  .print-hide,
+  .action-row,
+  .search-wrap,
+  .record-count,
+  .btn-save,
+  .btn-update,
+  .btn-clear,
+  .btn-pdf {
+    display: none !important;
+  }
+  .card {
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+  .card-body,
+  .table-meta {
+    padding: 0;
+  }
+  .table-scroll {
+    overflow: visible;
+  }
+  table {
+    border: 1px solid #000;
+  }
+  thead th {
+    background: transparent !important;
+    color: #000 !important;
+    border: 1px solid #000;
+    font-weight: 600;
+  }
+  tbody td {
+    border: 1px solid #000;
+    padding: 6px 8px;
+  }
+  tbody tr,
+  tbody tr:hover {
+    background: transparent !important;
+  }
+  .age-pill {
+    background: transparent !important;
+    border: none !important;
+    color: #000 !important;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+
+  body{
+    padding:12px;
+  }
+
+  .page-wrap{
+    gap:16px;
+  }
+
+  .card-body{
+    padding:16px;
+  }
+
+  .card-header{
+    padding:14px 16px;
+  }
+
+  .card-header h2{
+    font-size:12px;
+  }
+
+  /* Form fields full width */
+  .form-grid{
+    grid-template-columns:1fr;
+    gap:12px;
+  }
+
+  /* Buttons stack */
+  .action-row{
+    padding:12px 16px 16px;
+    flex-direction:column;
+  }
+
+  .action-row button{
+    width:100%;
+    justify-content:center;
+  }
+
+  /* Search + PDF button stack */
+  .table-meta{
+    padding:16px;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .search-wrap{
+    width:100%;
+    max-width:none !important;
+  }
+
+  .table-meta > div:last-child{
+    width:100%;
+    flex-direction:column;
+    align-items:stretch !important;
+  }
+
+  .btn-pdf{
+    width:100%;
+    justify-content:center;
+  }
+
+  .record-count{
+    text-align:center;
+  }
+
+  /* Better table scrolling */
+  .table-scroll{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  table{
+    min-width:900px;
+  }
+
+  /* Smaller text */
+  th,
+  td{
+    font-size:12px;
+  }
+
+  .btn-edit,
+  .btn-delete{
+    padding:6px 10px;
+    font-size:11px;
+  }
+
+  .page-header{
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .header-left h1{
+    font-size:24px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-wrap">
+
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-left">
+      <h1>Not Listed Senior Citizens</h1>
+    </div>
+  </header>
+
+  <!-- Form Card -->
+  <div class="card form-section">
+    <div class="card-header">
+      <div class="card-header-icon">✦</div>
+      <h2>ADD SENIOR CITIZEN</h2>
+    </div>
+
+    <div class="card-body">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Family Name <span class="req">*</span></label>
+          <input type="text" id="familyName">
+        </div>
+
+        <div class="form-group">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" id="firstName">
+        </div>
+
+        <div class="form-group">
+          <label>Middle Name</label>
+          <input type="text" id="middleName" placeholder="Optional">
+        </div>
+
+        <div class="form-group">
+          <label>Middle Initial</label>
+          <input type="text" id="middleInitial" readonly placeholder="Auto-filled">
+        </div>
+
+        <div class="form-group">
+          <label>OSCA ID No. <span class="req">*</span></label>
+          <input type="text" id="oscaId">
+        </div>
+
+        <div class="form-group">
+          <label>Birthdate <span class="req">*</span></label>
+          <input type="text" id="birthdate" placeholder="MM/DD/YYYY" maxlength="10">
+        </div>
+
+        <div class="form-group">
+          <label>Age</label>
+          <input type="text" id="age" readonly placeholder="Computed">
+        </div>
+
+        <div class="form-group">
+          <label>Barangay</label>
+          <input type="text" id="barangay" value="TALON-TALON" readonly>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="editBanner" class="edit-banner">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Click <strong style="margin:0 4px">Update</strong> to save.
+    </div>
+
+    <div class="action-row">
+      <button class="btn-save" onclick="saveRecord()">
+        Save
+      </button>
+      <button class="btn-update" onclick="updateRecord()">
+        Update
+      </button>
+      <button class="btn-clear" onclick="clearForm()">
+        Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- Table Card -->
+  <div class="card">
+    <div class="card-header print-hide">
+      <div class="card-header-icon">☰</div>
+      <h2>Records</h2>
+    </div>
+
+    <div class="table-meta print-hide">
+      <div class="search-wrap" style="flex:1;max-width:380px">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search" placeholder="Search by name or OSCA ID…" onkeyup="displayRecords()">
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="record-count" id="recordCount"></span>
+        <button class="btn-pdf" onclick="downloadPDF()">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download PDF
+        </button>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table id="mainTable">
+        <thead>
+          <tr>
+            <th style="width:44px">NO.</th>
+            <th>Family Name</th>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>M.I.</th>
+            <th>OSCA ID No.</th>
+            <th>Birthdate</th>
+            <th>Age</th>
+            <th>Barangay</th>
+            <th class="print-hide">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<!-- html2pdf.js CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+let editIndex = -1;
+
+// Auto-uppercase
+["familyName","firstName","middleName","oscaId"].forEach(id => {
+  document.getElementById(id).addEventListener("input", function(){
+    this.value = this.value.toUpperCase();
+  });
+});
+
+// OSCA ID: auto-insert hyphen after "SC" → "SC-"
+(function(){
+  const oscaInput = document.getElementById("oscaId");
+  let deletingHyphen = false;
+  oscaInput.addEventListener("keydown", function(e){
+    if(e.key === "Backspace" && this.value.toUpperCase() === "SC-"){
+      deletingHyphen = true;
+    } else {
+      deletingHyphen = false;
+    }
+  });
+  oscaInput.addEventListener("input", function(){
+    if(deletingHyphen){ deletingHyphen = false; return; }
+    const val = this.value.toUpperCase();
+    if(val === "SC"){
+      this.value = "SC-";
+    }
+  });
+})();
+
+// Middle initial
+document.getElementById("middleName").addEventListener("input", function(){
+  this.value = this.value.toUpperCase();
+  document.getElementById("middleInitial").value =
+    this.value ? this.value.charAt(0) + "." : "";
+});
+
+// Birthdate auto-format
+document.getElementById("birthdate").addEventListener("input", function(){
+  let v = this.value.replace(/\D/g,'');
+  if(v.length > 2) v = v.substring(0,2) + '/' + v.substring(2);
+  if(v.length > 5) v = v.substring(0,5) + '/' + v.substring(5,9);
+  this.value = v;
+  if(v.length === 10) document.getElementById("age").value = calculateAge(v);
+});
+
+function calculateAge(d){
+  if(!d) return "";
+  const p = d.split('/');
+  if(p.length !== 3) return "";
+  const bd = new Date(+p[2], +p[0]-1, +p[1]);
+  const today = new Date();
+  let age = today.getFullYear() - bd.getFullYear();
+  const md = today.getMonth() - bd.getMonth();
+  if(md < 0 || (md === 0 && today.getDate() < bd.getDate())) age--;
+  return age;
+}
+
+function getRecords(){ return JSON.parse(localStorage.getItem("oscaNotListed")) || []; }
+function saveRecords(r){ localStorage.setItem("oscaNotListed", JSON.stringify(r)); }
+
+function saveRecord(){
+  const fn  = document.getElementById("familyName").value.trim().toUpperCase();
+  const gn  = document.getElementById("firstName").value.trim().toUpperCase();
+  const mn  = document.getElementById("middleName").value.trim().toUpperCase();
+  const mi  = document.getElementById("middleInitial").value;
+  const id  = document.getElementById("oscaId").value.trim().toUpperCase();
+  const bd  = document.getElementById("birthdate").value;
+  const age = document.getElementById("age").value;
+  if(!fn||!gn||!id||!bd){ alert("Please fill in all required fields."); return; }
+  let records = getRecords();
+  records.push({ familyName:fn, firstName:gn, middleName:mn, middleInitial:mi, oscaId:id, birthdate:bd, age, barangay:"TALON-TALON" });
+  records.sort((a,b)=>a.familyName.localeCompare(b.familyName));
+  saveRecords(records);
+  clearForm();
+  displayRecords();
+}
+
+function updateRecord(){
+  if(editIndex === -1){ alert("Select a record to edit first."); return; }
+  let records = getRecords();
+  records.sort((a,b)=>a.familyName.localeCompare(b.familyName));
+  records[editIndex] = {
+    familyName:    document.getElementById("familyName").value.toUpperCase(),
+    firstName:     document.getElementById("firstName").value.toUpperCase(),
+    middleName:    document.getElementById("middleName").value.toUpperCase(),
+    middleInitial: document.getElementById("middleInitial").value,
+    oscaId:        document.getElementById("oscaId").value.toUpperCase(),
+    birthdate:     document.getElementById("birthdate").value,
+    age:           document.getElementById("age").value,
+    barangay:      "TALON-TALON"
+  };
+  records.sort((a,b)=>a.familyName.localeCompare(b.familyName));
+  saveRecords(records);
+  clearForm();
+  displayRecords();
+  editIndex = -1;
+}
+
+function deleteRecord(index){
+  if(!confirm("Are you sure you want to delete this record?")) return;
+  let records = getRecords();
+  records.sort((a,b)=>a.familyName.localeCompare(b.familyName));
+  records.splice(index,1);
+  saveRecords(records);
+  displayRecords();
+}
+
+function editRecord(index){
+  let records = getRecords();
+  records.sort((a,b)=>a.familyName.localeCompare(b.familyName));
+  const r = records[index];
+  document.getElementById("familyName").value    = r.familyName;
+  document.getElementById("firstName").value     = r.firstName;
+  document.getElementById("middleName").value    = r.middleName;
+  document.getElementById("middleInitial").value = r.middleInitial;
+  document.getElementById("oscaId").value        = r.oscaId;
+  document.getElementById("birthdate").value     = r.birthdate;
+  document.getElementById("age").value           = r.age;
+  editIndex = index;
+  document.getElementById("editBanner").classList.add("visible");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function clearForm(){
+  ["familyName","firstName","middleName","middleInitial","oscaId","birthdate","age"]
+    .forEach(id => document.getElementById(id).value = "");
+  editIndex = -1;
+  document.getElementById("editBanner").classList.remove("visible");
+}
+
+function displayRecords(){
+  let records = getRecords();
+  records.sort((a,b)=>a.familyName.localeCompare(b.familyName,undefined,{sensitivity:"base"}));
+  const kw = document.getElementById("search").value.toLowerCase();
+  if(kw) records = records.filter(r =>
+    r.familyName.toLowerCase().includes(kw) ||
+    r.firstName.toLowerCase().includes(kw) ||
+    r.oscaId.toLowerCase().includes(kw)
+  );
+
+  const countEl = document.getElementById("recordCount");
+  const total = getRecords().length;
+  countEl.innerHTML = kw
+    ? `Showing <strong>${records.length}</strong> of <strong>${total}</strong>`
+    : `<strong>${total}</strong> record${total !== 1 ? 's' : ''}`;
+
+  if(records.length === 0){
+    document.getElementById("tableBody").innerHTML = `
+      <tr><td colspan="10">
+        <div class="empty-state">
+          <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <p>${kw ? 'No records match your search.' : 'No records yet. Add a member above.'}</p>
+        </div>
+      </td></tr>`;
+    return;
+  }
+
+  document.getElementById("tableBody").innerHTML = records.map((r,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td class="td-name">${r.familyName}</td>
+      <td>${r.firstName}</td>
+      <td>${r.middleName || '<span style="color:var(--text-3)">—</span>'}</td>
+      <td>${r.middleInitial || '<span style="color:var(--text-3)">—</span>'}</td>
+      <td class="td-id">${r.oscaId}</td>
+      <td>${r.birthdate}</td>
+      <td><span class="age-pill">${r.age}</span></td>
+      <td>${r.barangay}</td>
+      <td class="td-actions print-hide">
+        <button class="btn-edit" onclick="editRecord(${i})">Edit</button>
+        <button class="btn-delete" onclick="deleteRecord(${i})">Delete</button>
+      </td>
+    </tr>`).join('');
+}
+
+/* ── PDF Export ── */
+function downloadPDF(){
+  const records = getRecords();
+  if(records.length === 0){ alert("No records to export."); return; }
+
+  const sorted = [...records].sort((a,b)=>a.familyName.localeCompare(b.familyName));
+  const now = new Date();
+  const cellStyle = "height:5.6mm;padding:0 3px;border:1px solid #000;vertical-align:middle;word-break:break-word;overflow:hidden;";
+
+  const rows = sorted.map((r,i) => `
+    <tr>
+      <td style="${cellStyle}text-align:center;">${i+1}</td>
+      <td style="${cellStyle}">${r.familyName}</td>
+      <td style="${cellStyle}">${r.firstName}</td>
+      <td style="${cellStyle}">${r.middleName||''}</td>
+      <td style="${cellStyle}text-align:center;">${r.middleInitial||''}</td>
+      <td style="${cellStyle}">${r.oscaId}</td>
+      <td style="${cellStyle}text-align:center;">${r.birthdate}</td>
+      <td style="${cellStyle}text-align:center;">${r.age}</td>
+      <td style="${cellStyle}">${r.barangay}</td>
+    </tr>`).join('');
+
+  const thStyle = "padding:4px 5px;border:1px solid #000;background:#fff;color:#000;font-weight:bold;text-align:left;";
+
+  const html = `
+  <div style="font-family:Calibri,Arial,sans-serif;padding:12.7mm;color:#000;font-size:10pt;background:#fff;">
+    <div style="text-align:center;margin-bottom:12px;">
+      <div style="font-size:12pt;font-weight:bold;">NOT LISTED SENIOR CITIZENS</div>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:10pt;color:#000;table-layout:fixed;">
+      <colgroup>
+        <col style="width:5%">
+        <col style="width:14%">
+        <col style="width:13%">
+        <col style="width:13%">
+        <col style="width:5%">
+        <col style="width:15%">
+        <col style="width:12%">
+        <col style="width:5%">
+        <col style="width:18%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th style="${thStyle}text-align:center;">NO.</th>
+          <th style="${thStyle}">Family Name</th>
+          <th style="${thStyle}">First Name</th>
+          <th style="${thStyle}">Middle Name</th>
+          <th style="${thStyle}text-align:center;">M.I.</th>
+          <th style="${thStyle}">OSCA ID No.</th>
+          <th style="${thStyle}text-align:center;">Birthdate</th>
+          <th style="${thStyle}text-align:center;">Age</th>
+          <th style="${thStyle}">Barangay</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows}
+      </tbody>
+    </table>
+  </div>`;
+
+  const container = document.createElement('div');
+  container.innerHTML = html;
+  document.body.appendChild(container);
+
+  html2pdf().set({
+    margin:       0,
+    filename:     `NOT_LISTED.pdf`,
+    image:        { type:'jpeg', quality:1 },
+    html2canvas:  { scale:2, useCORS:true, backgroundColor:'#ffffff' },
+    jsPDF:        { unit:'mm', format:'a4', orientation:'portrait' }
+  }).from(container).save().then(()=>{
+    document.body.removeChild(container);
+  });
+}
+  
+displayRecords();
+</script>
+
+</body>
+</html>
